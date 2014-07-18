@@ -7,13 +7,21 @@ class PlotWindow
 {
 public:
 	PlotWindow();
-	void create();
-
+	bool create(GLuint width, GLuint height);
+	void display();
+	void destroy();
 	virtual ~PlotWindow();
 
 protected:
+	void input();
+	void render();
+	void update();
+	void initOpenGL();
+
+	GLuint WIDTH, HEIGHT;
 	SDL_Window* wnd;
 	SDL_Renderer* rndr;
 	SDL_GLContext ctx;
+	bool loop;
 };
 
