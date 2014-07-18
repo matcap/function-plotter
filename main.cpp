@@ -12,7 +12,7 @@ using namespace std;
 
 int main(int argc, char* argv[]){
 	PlotWindow window;
-	window.create(1200, 400);
+	window.create(800, 600);
 	window.display();
 
 	window.destroy();
