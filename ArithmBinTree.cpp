@@ -9,7 +9,7 @@
 
 ArithmBinTree::ArithmBinTree() {
 	// TODO Auto-generated constructor stub
-
+    
 }
 
 ArithmBinTree::~ArithmBinTree() {

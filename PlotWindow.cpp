@@ -1,6 +1,9 @@
 #include "PlotWindow.h"
 
 
+
+
+
 PlotWindow::PlotWindow()
 {
 }
@@ -42,16 +45,12 @@ void PlotWindow::input(){
 		case SDL_KEYDOWN:
 			switch (event.key.keysym.sym){
 			case SDLK_UP:
-				camera.moveForward(0.1);
 				break;
 			case SDLK_DOWN:
-				camera.moveForward(-0.1);
 				break;
 			case SDLK_LEFT:
-				camera.yaw(1);
 				break;
 			case SDLK_RIGHT:
-				camera.yaw(-1);
 				break;
 			default:
 				break;
@@ -72,10 +71,11 @@ void PlotWindow::input(){
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
-			break;
-
-		case SDL_MOUSEBUTTONUP:
 			
+			break;
+		case SDL_MOUSEWHEEL:
+			break;
+		case SDL_MOUSEBUTTONUP:
 			break;
 
 		case SDL_MOUSEMOTION:
@@ -96,47 +96,34 @@ void PlotWindow::input(){
 		}
 	}
 }
+float rot = 0;
 
 void PlotWindow::render(){
-	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	camera.applyUpdates();
 
-	glPushMatrix();
-	glTranslatef(0, 0, -5);
 
-		glBegin(GL_TRIANGLES);
-			glColor3f(1, 0, 0);
-			glVertex3d(-0.5, 0, 0);
-			glColor3f(0, 1, 0);
-			glVertex3d(0.5, 0, 0);
-			glColor3f(0, 0, 1);
-			glVertex3d(0, 1, 0);
-		glEnd();
-	glPopMatrix();
+	//Draw the "world":
+	glRotatef(rot, 0, 1, 0);
+	drawGrids();
 	
+
+	camera.applyView();
+	rot += 1;
 	SDL_GL_SwapWindow(wnd);
 }
 
 void PlotWindow::update(){
+	
 }
 
 void PlotWindow::initOpenGL(){
 	SDL_GL_SetSwapInterval(1);
-	glClearColor(.25, .25, .25, 1);
 	
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
 }
 
 void PlotWindow::setupView(){
-	glViewport(0, 0, WIDTH, HEIGHT);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(45, double(WIDTH) / double(HEIGHT), 0.01, 100.0);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	
 }
 
 void PlotWindow::display(){

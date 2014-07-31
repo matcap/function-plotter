@@ -33,6 +33,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="OGLRenderer.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globals.h">
@@ -51,6 +54,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="OGLRenderer.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

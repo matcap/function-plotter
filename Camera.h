@@ -1,6 +1,13 @@
 #pragma once
-#include <math.h>
+#include <cmath>
 #include <SDL2\SDL_opengl.h>
+#include <gl\GLU.h>
+#include "OGLRenderer.h"
+
+using namespace std;
+
+
+
 
 
 class Camera
@@ -8,17 +15,12 @@ class Camera
 public:
 	Camera();
 	virtual ~Camera();
-	GLfloat pos[3];
-	GLfloat rot[3];
+	Vector3f pos;
+	Vector3f cen;
+	void applyView();
 
-	void moveForward(GLfloat dist);
-	void moveLateral(GLfloat dist);
-	void moveVertical(GLfloat dist);
-
-	void roll(GLfloat angle);  // Z-rot
-	void yaw(GLfloat angle);   // Y-rot
-	void pitch(GLfloat angle); // X-rot
-	
-	void applyUpdates();
+private:
+	float theta;
+	float phi;
 };
 

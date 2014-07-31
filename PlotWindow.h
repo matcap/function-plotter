@@ -2,11 +2,12 @@
 #include <SDL2\SDL_opengl.h>
 #include <SDL2\SDL_main.h>
 #include <gl\GLU.h>
-#include <math.h>
 #include "Camera.h"
 #pragma once
+
 class PlotWindow
 {
+
 public:
 	PlotWindow();
 	bool create(GLuint width, GLuint height);
@@ -26,6 +27,11 @@ protected:
 	SDL_Renderer* rndr;
 	SDL_GLContext ctx;
 	Camera camera;
+
+	float xrot;
+	float yrot;
+	float xpos;
+	float ypos;
 	bool loop;
 };
 

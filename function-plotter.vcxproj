@@ -69,6 +69,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ExpressionTree.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="OGLRenderer.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="PlotWindow.cpp" />
   </ItemGroup>
@@ -77,6 +78,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ExpressionTree.h" />
     <ClInclude Include="globals.h" />
+    <ClInclude Include="OGLRenderer.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="PlotWindow.h" />
   </ItemGroup>
