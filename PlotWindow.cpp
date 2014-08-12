@@ -1,9 +1,5 @@
 #include "PlotWindow.h"
 
-
-
-
-
 PlotWindow::PlotWindow()
 {
 }
@@ -12,6 +8,7 @@ PlotWindow::PlotWindow()
 PlotWindow::~PlotWindow()
 {
 	destroy();
+	delete renderer;
 }
 
 bool PlotWindow::create(GLuint width, GLuint height){
@@ -24,10 +21,15 @@ bool PlotWindow::create(GLuint width, GLuint height){
 
 	ctx = SDL_GL_CreateContext(wnd);
 
+	renderer = new OGLRenderer();
+	renderer->camFocus.set(0, 0, 0);
+	renderer->camradius = 5;
+	renderer->setView(width, height);
+
 	WIDTH = width;
 	HEIGHT = height;
 	loop = true;
-
+	debugMSG("WINDOW CREATED");
 	return true;
 }
 
@@ -71,15 +73,20 @@ void PlotWindow::input(){
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
-			
+			mousedown = true;
 			break;
 		case SDL_MOUSEWHEEL:
+			renderer->camradius -= event.wheel.y * 0.1f;
 			break;
 		case SDL_MOUSEBUTTONUP:
+			mousedown = false;
 			break;
 
 		case SDL_MOUSEMOTION:
-			
+			if (mousedown){
+				renderer->camAngularVel.x += atan(degtorad(event.motion.yrel)) * 2;
+				renderer->camAngularVel.y += atan(degtorad(event.motion.xrel)) * 2;
+			}
 			break;
 
 		case SDL_WINDOWEVENT:
@@ -87,7 +94,7 @@ void PlotWindow::input(){
 			case SDL_WINDOWEVENT_RESIZED:
 				WIDTH = event.window.data1;
 				HEIGHT = event.window.data2;
-				setupView();
+				renderer->setView(WIDTH, HEIGHT);
 				break;
 			}
 
@@ -96,40 +103,19 @@ void PlotWindow::input(){
 		}
 	}
 }
-float rot = 0;
 
 void PlotWindow::render(){
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
-
-
-	//Draw the "world":
-	glRotatef(rot, 0, 1, 0);
-	drawGrids();
-	
-
-	camera.applyView();
-	rot += 1;
+	renderer->render();
 	SDL_GL_SwapWindow(wnd);
 }
 
 void PlotWindow::update(){
-	
+	renderer->update(16);
 }
 
-void PlotWindow::initOpenGL(){
-	SDL_GL_SetSwapInterval(1);
-	
-}
 
-void PlotWindow::setupView(){
-	
-}
 
 void PlotWindow::display(){
-	initOpenGL();
-	setupView();
-
 	while (loop){
 		input();
 		update();
@@ -137,4 +123,8 @@ void PlotWindow::display(){
 		SDL_Delay(16);
 	}
 
+}
+
+void PlotWindow::setPlotData(PlotData* data){
+	renderer->genPlotDisplayList(data);
 }

@@ -35,5 +35,6 @@ private:
 	int getClosedBracketPos(string s, int pos);
 	string unwrap(string s);
 	int getOperator(string expr, int startPos); //-1 if not an operator, else TokenId
+	string removeChar(string str, char c);
 };
 

@@ -30,10 +30,10 @@
     <ClCompile Include="PlotWindow.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
+    <ClCompile Include="OGLRenderer.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="OGLRenderer.cpp">
+    <ClCompile Include="globals.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -51,9 +51,6 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="PlotWindow.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="OGLRenderer.h">

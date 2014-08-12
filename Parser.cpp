@@ -45,8 +45,9 @@ ParseResult* Parser::parse(string expr){
 
 	int lowPriorityToken = tokens.size();	// Track the minimum priority
 	int lowPrPos = -1;						// operator token during parsing 
-			
-	// Remove redundant brackets
+	
+	// Remove unwanted chars
+	expr = removeChar(expr, ' ');
 	expr = unwrap(expr);
 	transform(expr.begin(), expr.end(), expr.begin(), tolower);
 
@@ -96,4 +97,13 @@ ParseResult* Parser::parse(string expr){
 
 	return result;
 
+}
+
+
+string Parser::removeChar(string str, char c){
+	string newstr;
+	for each (char i in str)
+		if (i != c)
+			newstr += i;
+		return newstr;
 }

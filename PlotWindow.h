@@ -2,9 +2,11 @@
 #include <SDL2\SDL_opengl.h>
 #include <SDL2\SDL_main.h>
 #include <gl\GLU.h>
-#include "Camera.h"
+#include <vector>
+#include "OGLRenderer.h"
+#include "globals.h"
 #pragma once
-
+using namespace std;
 class PlotWindow
 {
 
@@ -14,24 +16,23 @@ public:
 	void display();
 	void destroy();
 	virtual ~PlotWindow();
+	void setPlotData(PlotData* data);
 
 protected:
 	void input();
 	void render();
 	void update();
-	void initOpenGL();
-	void setupView();
 	
 	GLuint WIDTH, HEIGHT;
 	SDL_Window* wnd;
 	SDL_Renderer* rndr;
 	SDL_GLContext ctx;
-	Camera camera;
+	OGLRenderer* renderer;
+	
+	int num;
+	float* vertices;
 
-	float xrot;
-	float yrot;
-	float xpos;
-	float ypos;
+	bool mousedown;
 	bool loop;
 };
 

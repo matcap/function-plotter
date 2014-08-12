@@ -11,10 +11,33 @@
 using namespace std;
 
 int main(int argc, char* argv[]){
-	PlotWindow window;
-	window.create(800, 600);
-	window.display();
-	window.destroy();
+	string input;
+	cout << "[Plot] >> ";
+	getline(cin, input);
+
+	while (input != "exit"){
+
+		if (input.length() > 0){
+			ExpressionTree tree;
+			tree.create(input);
+			debugMSG("TREE CREATED");
+			cout << "\tStart eval..." << endl;
+
+			PlotData* data = tree.evalRange({ -10, 10 }, { -10, 10 }, 0.1);
+			debugMSG("TREE EVALUATED");
+			cout << "\tEval complete"<< endl << "\tDisplaying plot..." << endl;
+			
+			PlotWindow window;
+			window.create(800, 600);
+			window.setPlotData(data);
+			window.display();
+			window.destroy();
+		}
+
+		cout << endl << "[Plot] >> ";
+		getline(cin, input);
+	}
+
+	cout << "Application closed." << endl;
 	return 0;
-	std::cout << "dsdsad" 
 }
