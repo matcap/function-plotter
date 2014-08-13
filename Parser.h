@@ -21,6 +21,9 @@ static const vector<string> tokens = {
 	"^",
 	"sin",
 	"cos",
+	"tan",
+	"atan",
+	"sqrt",
 	"x",
 	"y"
 };

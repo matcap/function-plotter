@@ -11,7 +11,7 @@ PlotWindow::~PlotWindow()
 	delete renderer;
 }
 
-bool PlotWindow::create(GLuint width, GLuint height){
+bool PlotWindow::create(GLuint width, GLuint height, string title){
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 		return false;
@@ -19,6 +19,7 @@ bool PlotWindow::create(GLuint width, GLuint height){
 	if (SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_OPENGL|SDL_WINDOW_SHOWN|SDL_WINDOW_RESIZABLE, &wnd, &rndr) < 0)
 		return false;
 
+	SDL_SetWindowTitle(wnd, title.c_str());
 	ctx = SDL_GL_CreateContext(wnd);
 
 	renderer = new OGLRenderer();
@@ -29,7 +30,6 @@ bool PlotWindow::create(GLuint width, GLuint height){
 	WIDTH = width;
 	HEIGHT = height;
 	loop = true;
-	debugMSG("WINDOW CREATED");
 	return true;
 }
 

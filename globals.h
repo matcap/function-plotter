@@ -17,6 +17,9 @@ enum TokenId{
 	// Unary operators
 	SIN,
 	COS,
+	TAN,
+	ATAN,
+	SQRT,
 	// Variables
 	VARX,
 	VARY,
@@ -56,10 +59,8 @@ typedef struct{
 	float step;
 } PlotData;
 
-static const float PI = 3.14159265359;
+static const float PI = 3.14159265359f;
 
 float radtodeg(float rad);
 
 float degtorad(float deg);
-
-void debugMSG(char* dbg);

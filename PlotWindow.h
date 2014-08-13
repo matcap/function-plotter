@@ -3,6 +3,7 @@
 #include <SDL2\SDL_main.h>
 #include <gl\GLU.h>
 #include <vector>
+#include <string>
 #include "OGLRenderer.h"
 #include "globals.h"
 #pragma once
@@ -12,7 +13,7 @@ class PlotWindow
 
 public:
 	PlotWindow();
-	bool create(GLuint width, GLuint height);
+	bool create(GLuint width, GLuint height, string title);
 	void display();
 	void destroy();
 	virtual ~PlotWindow();

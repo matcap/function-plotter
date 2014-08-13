@@ -43,8 +43,3 @@ float radtodeg(float rad)
 float degtorad(float deg){
 	return deg * PI / 180;
 }
-
-void debugMSG(char* dbg)
-{
-	std::cout << "debugMSG: " << dbg << std::endl;
-}

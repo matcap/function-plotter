@@ -20,15 +20,18 @@ int main(int argc, char* argv[]){
 		if (input.length() > 0){
 			ExpressionTree tree;
 			tree.create(input);
-			debugMSG("TREE CREATED");
+
 			cout << "\tStart eval..." << endl;
 
-			PlotData* data = tree.evalRange({ -10, 10 }, { -10, 10 }, 0.1);
-			debugMSG("TREE EVALUATED");
+			PlotData* data = tree.evalRange({ -5, 5 }, { -5, 5 }, 0.1);
+
 			cout << "\tEval complete"<< endl << "\tDisplaying plot..." << endl;
 			
 			PlotWindow window;
-			window.create(800, 600);
+			if (!window.create(800, 600, "Plot: " + input)){
+				SDL_Log("Could not create SDL/OpenGL context");
+				break;
+			}
 			window.setPlotData(data);
 			window.display();
 			window.destroy();

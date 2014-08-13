@@ -53,7 +53,7 @@ OGLRenderer::~OGLRenderer()
 
 void OGLRenderer::init(void)
 {
-	glClearColor(.5, .5, .5, 1);
+	glClearColor(.1, .1, .1, 1);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_BLEND);
@@ -68,7 +68,7 @@ void OGLRenderer::render()
 	applyView();
 
 	//drawGrids();
-	glScalef(0.5, 0.1, 0.5);
+	glScalef(1, 0.5, 1);
 	glCallList(plotList);
 	
 }
@@ -84,8 +84,8 @@ void OGLRenderer::setView(int width, int height)
 }
 
 void OGLRenderer::update(int delta){
-	camAngularVel.x -= camAngularVel.x * 0.02 * delta;
-	camAngularVel.y -= camAngularVel.y * 0.02 * delta;
+	camAngularVel.x -= camAngularVel.x * 0.01 * delta;
+	camAngularVel.y -= camAngularVel.y * 0.01 * delta;
 
 	camRot.x += camAngularVel.x;
 	camRot.y += camAngularVel.y;
@@ -99,50 +99,49 @@ void OGLRenderer::applyView(){
 }
 
 void OGLRenderer::genPlotDisplayList(PlotData* data){
-	debugMSG("GENERATING DISPLAY LIST");
 	plotList = glGenLists(1);
-	debugMSG("CREATING DISPLAY LIST");
 	glNewList(plotList, GL_COMPILE);
-	glBegin(GL_LINE_LOOP);
-	
-	bool backwards = false;
+
 	for (int row = 0; row < data->rows; row++){
-		if (!backwards){
-			for (int col = 0; col < data->cols; col++){
-				Vector3f v = data->points[row * data->cols + col];
-				glColor4f(0, 0.9, 0, 0.8);
-				glVertex3f(v.x, v.z, v.y);
-			}
-		}
-		else{
-			for (int col = data->cols - 1; col >= 0; col--){
-				Vector3f v = data->points[row * data->cols + col];
-				glColor4f(0, 0.9, 0, 0.8);
-				glVertex3f(v.x, v.z, v.y);
-			}
-		}
-		backwards = !backwards;
-	}
+		glBegin(GL_LINE_STRIP);
+		for (int col = 0; col < data->cols; col++){
+			Vector3f v = data->points[row * data->cols + col];
+			float red, blue, green = 0;
+			green = abs(v.z) / (abs(data->zrange.high) + abs(data->zrange.low));
 
-	backwards = false;
+			if (v.z > 0)
+				red = v.z / abs(data->zrange.high);
+			else if (v.z < 0)
+				blue = v.z / abs(data->zrange.low);
+
+			glColor4f(red, 1 - green , blue, 1);
+			glVertex3f(v.x, v.z, v.y);
+		}
+		glEnd();
+	}
+	
 	for (int col = 0; col < data->cols; col++){
-		if (!backwards){
-			for (int row = 0; row < data->rows; row++){
-				Vector3f v = data->points[row * data->cols + col];
-				glColor4f(0, 0.9, 0, 0.8);
-				glVertex3f(v.x, v.z, v.y);
-			}
-		}
-		else{
-			for (int row = data->rows -1; row >=0; row--){
-				Vector3f v = data->points[row * data->cols + col];
-				glColor4f(0, 0.9, 0, 0.8);
-				glVertex3f(v.x, v.z, v.y);
-			}
-		}
-	}
-	glEnd();
-	glEndList();
+		glBegin(GL_LINE_STRIP);
+		for (int row = 0; row < data->rows; row++){
+			Vector3f v = data->points[row * data->cols + col];
+			float red, blue, green = 0;
+			green = abs(v.z) / (abs(data->zrange.high) + abs(data->zrange.low));
 
-	debugMSG("DISPLAY LIST CREATED");
+			if (v.z > 0)
+				red = v.z / data->zrange.high;
+			else if (v.z < 0)
+				blue = v.z / data->zrange.low;
+
+			glColor4f(red, 1 - green, blue, 1);
+			glVertex3f(v.x, v.z, v.y);
+		}
+		glEnd();
+	}
+
+	glEndList();
+	this->data = data;
+}
+
+void OGLRenderer::createVertex(Vector3f v){
+	
 }
