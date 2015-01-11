@@ -1,6 +1,6 @@
 #pragma once
-#include <SDL2\SDL_opengl.h>
-#include <gl\GLU.h>
+#include <SDL2/SDL_opengl.h>
+#include <GL/glu.h>
 #include <cmath>
 #include <vector>
 #include "globals.h"

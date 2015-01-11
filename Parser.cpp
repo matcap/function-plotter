@@ -49,7 +49,7 @@ ParseResult* Parser::parse(string expr){
 	// Remove unwanted chars
 	expr = removeChar(expr, ' ');
 	expr = unwrap(expr);
-	transform(expr.begin(), expr.end(), expr.begin(), tolower);
+	transform(expr.begin(), expr.end(), expr.begin(), ::tolower);
 
 	// Add 0 to let constants have negative sign
 	if (expr[0] == '-')
@@ -102,8 +102,9 @@ ParseResult* Parser::parse(string expr){
 
 string Parser::removeChar(string str, char c){
 	string newstr;
-	for each (char i in str)
-		if (i != c)
-			newstr += i;
-		return newstr;
+	for(auto i=str.begin(); i != str.end(); i++) {
+		if (*i != c)
+			newstr += *i;
+	}
+	return newstr;
 }

@@ -13,17 +13,18 @@ using namespace std;
 int main(int argc, char* argv[]){
 	string input;
 	cout << "[Plot] >> ";
-	getline(cin, input);
+	cin.ignore();
+	cin >> input;
 
 	while (input != "exit"){
 
 		if (input.length() > 0){
 			ExpressionTree tree;
+			cout << "Expanding tree..." << endl;
 			tree.create(input);
 
 			cout << "\tStart eval..." << endl;
-
-			PlotData* data = tree.evalRange({ -5, 5 }, { -5, 5 }, 0.1);
+			PlotData* data = tree.evalRange(Range(-5,5), Range(-5,5), 0.1);
 
 			cout << "\tEval complete"<< endl << "\tDisplaying plot..." << endl;
 			

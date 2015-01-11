@@ -14,7 +14,7 @@
 class BinaryNode {
 public:
 	BinaryNode();
-	virtual ~BinaryNode();
+	~BinaryNode();
 	virtual double eval(Vec2d v);
 	BinaryNode* left;
 	BinaryNode* right;

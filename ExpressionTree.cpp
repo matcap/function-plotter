@@ -21,7 +21,8 @@ bool ExpressionTree::create(string expr){
 }
 
 void ExpressionTree::destroy(){
-	delete root;
+	if(root != nullptr)
+		delete root;
 }
 
 double ExpressionTree::eval(Vec2d v){
@@ -33,8 +34,9 @@ double ExpressionTree::eval(Vec2d v){
 
 bool ExpressionTree::recursivelyGen(ExpRoot &root, string expr){
 	Parser parser;
+	cout << "Parsing " << expr << endl;
 	ParseResult* res = parser.parse(expr);
-
+	cout << "Parsed" << endl;
 	if (res == nullptr)
 		return false;
 

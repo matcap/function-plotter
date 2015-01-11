@@ -1,5 +1,5 @@
 #pragma once
-#include <SDL2\SDL_opengl.h>
+#include <SDL2/SDL_opengl.h>
 #include <vector>
 #include <iostream>
 #ifdef CONST
@@ -45,10 +45,14 @@ public:
 	GLfloat x, y, z;
 };
 
-typedef struct{
+typedef struct Range{
 	float low;
 	float high;
-} Range;
+	Range(float low, float high) : low(0), high(0){
+		this->low = low;
+		this->high = high;
+	}
+};
 
 typedef struct{
 	std::vector<Vector3f> points;
