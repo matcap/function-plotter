@@ -18,8 +18,15 @@ BinaryNode::BinaryNode() {
 }
 
 BinaryNode::~BinaryNode() {
-	delete left;
-	delete right;
+	if (left != nullptr) {
+		delete left;
+		left = nullptr;	
+	}
+
+	if (right != nullptr) {
+		delete right;
+		right = nullptr;
+	}
 }
 
 double BinaryNode::eval(Vec2d v) {

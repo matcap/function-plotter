@@ -45,7 +45,7 @@ public:
 	GLfloat x, y, z;
 };
 
-typedef struct Range{
+struct Range{
 	float low;
 	float high;
 	Range(float low, float high) : low(0), high(0){
@@ -54,14 +54,18 @@ typedef struct Range{
 	}
 };
 
-typedef struct{
+struct PlotData{
 	std::vector<Vector3f> points;
 	int rows; int cols;
 	Range xrange;
 	Range yrange;
 	Range zrange;
 	float step;
-} PlotData;
+
+	PlotData() : xrange(0,0), yrange(0,0), zrange(0,0) {
+		
+	}
+};
 
 static const float PI = 3.14159265359f;
 

@@ -13,8 +13,8 @@ using namespace std;
 int main(int argc, char* argv[]){
 	string input;
 	cout << "[Plot] >> ";
-	cin.ignore();
-	cin >> input;
+	//cin.ignore();
+	getline(cin, input);
 
 	while (input != "exit"){
 

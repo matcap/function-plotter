@@ -1,6 +1,7 @@
 #include "ExpressionTree.h"
 ExpressionTree::ExpressionTree()
 {
+	root = nullptr;
 }
 
 ExpressionTree::ExpressionTree(string expr)
